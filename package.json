@@ -1,0 +1,26 @@
+{
+ "name": "pruebaauco",
+ "version": "1.0.0",
+ "description": "",
+ "license": "ISC",
+ "author": "",
+ "type": "commonjs",
+ "main": "index.js",
+ "scripts": {
+  "start": "tsc && node dist/index.js",
+  "dev": "nodemon --watch src --ext ts --exec ts-node src/index.ts",
+  "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\""
+ },
+ "dependencies": {
+  "dotenv": "^18.0.10",
+  "express": "^5.3.0",
+  "nodemon": "^3.1.14"
+ },
+ "devDependencies": {
+  "@types/express": "^5.0.6",
+  "@types/node": "^26.6.6",
+  "prettier": "^3.10.1",
+  "ts-node": "^10.9.2",
+  "typescript": "^5.9.3"
+ }
+}
