@@ -1,0 +1,46 @@
+services:
+ node:
+  build:
+   context: .
+   dockerfile: Dockerfile
+  container_name: node_app
+  restart: unless-stopped
+  ports:
+   - "3000:3000"
+  volumes:
+   - .:/app
+   - /app/node_modules
+  environment:
+   PORT: 3000
+   MONGO_URI: mongodb://mongo:27017/my_database
+   DYNAMODB_ENDPOINT: http://dynamodb:8000
+   AWS_REGION: us-east-1
+   AWS_ACCESS_KEY_ID: local
+   AWS_SECRET_ACCESS_KEY: local
+  depends_on:
+   - mongo
+   - dynamodb
+
+ mongo:
+  image: mongo:8
+  container_name: mongodb
+  restart: unless-stopped
+  ports:
+   - "27017:27017"
+  volumes:
+   - mongo_data:/data/db
+
+ dynamodb:
+  image: amazon/dynamodb-local:latest
+  container_name: dynamodb
+  restart: unless-stopped
+  command: "-jar DynamoDBLocal.jar -sharedDb"
+  ports:
+   - "8000:8000"
+  volumes:
+   - dynamodb_data:/home/dynamodblocal/data
+  working_dir: /home/dynamodblocal
+
+volumes:
+ mongo_data:
+ dynamodb_data:
