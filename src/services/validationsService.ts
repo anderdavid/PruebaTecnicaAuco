@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const EXTERNAL_API = "https://countriesnow.space/api/v0.1/countries/currencyi";
+const EXTERNAL_API = "https://countriesnow.space/api/v0.1/countries/currency";
 const paramsExternalApi = {
  country: "Colombia",
 };

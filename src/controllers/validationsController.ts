@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import configDatabase from "../config/database";
 import Validation from "../models/Validations";
 import { fetchCurrencyByCoutry } from "../services/validationsService";
+import { createAuditory } from "../services/createAuditory";
 
 export const createValidations = async (req: Request, res: Response) => {
  await configDatabase();
@@ -16,6 +17,11 @@ export const createValidations = async (req: Request, res: Response) => {
    body = { ...body, data: response.data };
   }
   const newValidation = await Validation.create(body);
+  await createAuditory({
+   idDocumento: body?.numeroDocumento,
+   fecha: new Date().toISOString(),
+   data: response.data,
+  });
   return res.status(201).json({ id: newValidation._id });
  } catch (error) {
   console.log("error creating validation", error);

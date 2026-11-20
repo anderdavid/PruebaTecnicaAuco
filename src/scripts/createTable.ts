@@ -16,7 +16,7 @@ const client = new DynamoDBClient({
 
 export async function createTable() {
  const params: CreateTableCommandInput = {
-  TableName: "Interventory",
+  TableName: "auditory",
 
   AttributeDefinitions: [
    {
@@ -25,10 +25,6 @@ export async function createTable() {
    },
    {
     AttributeName: "idDocumento",
-    AttributeType: "S",
-   },
-   {
-    AttributeName: "fechaPartition",
     AttributeType: "S",
    },
    {
@@ -52,18 +48,6 @@ export async function createTable() {
       AttributeName: "idDocumento",
       KeyType: "HASH",
      },
-    ],
-    Projection: {
-     ProjectionType: "ALL",
-    },
-   },
-   {
-    IndexName: "fechaIndex",
-    KeySchema: [
-     {
-      AttributeName: "fechaPartition",
-      KeyType: "HASH",
-     },
      {
       AttributeName: "fecha",
       KeyType: "RANGE",
@@ -81,11 +65,11 @@ export async function createTable() {
  try {
   await client.send(
    new DescribeTableCommand({
-    TableName: "Interventory",
+    TableName: "auditory",
    })
   );
 
-  console.log("La tabla Interventory ya existe");
+  console.log("La tabla auditory ya existe");
   return;
  } catch (error: any) {
   if (error.name !== "ResourceNotFoundException") {
