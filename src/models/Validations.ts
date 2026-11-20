@@ -4,12 +4,14 @@ interface IValidation extends Document {
  id: any;
  nombre: string;
  numeroDocumento: string;
+ data?: any;
 }
 
 const ValidationsSchema = new Schema<IValidation>({
  id: { type: String, required: false },
  nombre: { type: String, required: true },
  numeroDocumento: { type: String, required: true },
+ data: { type: Object, required: false },
 });
 
 const Validation = model<IValidation>(

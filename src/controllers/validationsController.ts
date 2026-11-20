@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 import configDatabase from "../config/database";
 import Validation from "../models/Validations";
+import { fetchCurrencyByCoutry } from "../services/validationsService";
 
 export const createValidations = async (req: Request, res: Response) => {
  await configDatabase();
@@ -9,8 +10,13 @@ export const createValidations = async (req: Request, res: Response) => {
  let body = req.body;
 
  try {
+  const response = await fetchCurrencyByCoutry();
+  console.log("response", response);
+  if (response?.status === 200) {
+   body = { ...body, data: response.data };
+  }
   const newValidation = await Validation.create(body);
-  return res.status(201).json(newValidation);
+  return res.status(201).json({ id: newValidation._id });
  } catch (error) {
   console.log("error creating validation", error);
   return res.status(500).send({ error: `Internal Server Error ${error}` });
