@@ -48,7 +48,7 @@ npm run logs
 
 ## probar servicio
 
-#### crear validation
+#### crear validación
 
 ```
 curl --location 'http://localhost:3000/validations' \
@@ -59,7 +59,7 @@ curl --location 'http://localhost:3000/validations' \
 	}'
 ```
 
-#### ver validacion
+#### ver validación
 
 ```
 curl --location 'http://localhost:3000/validations/{{id}}'
@@ -82,3 +82,19 @@ curl --location 'http://localhost:3000/auditories'
 ```
 npm run test
 ```
+
+## Preguntas
+
+1. ¿Cómo usaste la IA: qué le pediste y qué tuviste que corregir?
+
+Respuesta:
+Le pedi que me ayudara con la configuarcion del archivo docker compose para la creación de las imágenes docker además del código para la creación de la tabla dynamo. Tuve que corregir la validación de la que la tabla solo se creara si no existe.
+
+2. ¿ Por qué elegiste esas llaves en DynamoDB.?
+   Respuesta:
+   Puse id como llave primaria como llave por defecto, como índices secundarios puse idDocumento y fecha, esto debido a temas de eficiencia para evitar el uso de scan ya que trae todos los registros y hace ineficiente la búsqueda.
+
+3. ¿Qué mejorarías con más tiempo?
+
+- Agregaría más pruebas automatizadas, y realizaría más pruebas manuales
+- Implementaría endpoints de búsqueda en las auditorias por fecha y idDocumento
