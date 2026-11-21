@@ -70,14 +70,21 @@ export async function createTable() {
   );
 
   console.log("La tabla auditory ya existe");
-  return;
  } catch (error: any) {
-  if (error.name !== "ResourceNotFoundException") {
-   throw error;
+  if (error.name === "ResourceNotFoundException") {
+   try {
+    console.log("La tabla no existe. Creándola...");
+
+    await client.send(new CreateTableCommand(params));
+
+    console.log("Tabla auditory creada correctamente");
+   } catch (createError) {
+    console.error("No se pudo crear la tabla auditory:", createError);
+   }
+  } else {
+   console.error("Error consultando la tabla auditory:", error);
   }
  }
-
- await client.send(new CreateTableCommand(params));
 }
 
 createTable();
