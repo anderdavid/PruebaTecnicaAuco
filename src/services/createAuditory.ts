@@ -28,7 +28,6 @@ export const createAuditory = async (auditory: IAuditory) => {
    data: auditory.data,
   },
  };
- console.log("params", params);
 
  await client.send(new PutCommand(params));
 };
